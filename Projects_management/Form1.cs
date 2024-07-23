@@ -45,14 +45,17 @@ namespace Projects_management
             }
             else
             {
+                //יצירת נוד חדש שיהיה תגית ביניים
                 XmlNode root = XmlDocument.CreateElement("projects");
+                //הכנסה לקובץ המקורי 
                 XmlDocument.AppendChild(root);
+                //שמירת הקובץ המעודכן
                 XmlDocument.Save(pathName);
             }
             
         }
 
-        //פונקציית יצירת פרויקט
+        // פונקציית יצירת פרויקט ע"י לחיצת הכפתור
         private void btnAddProjact_Click(object sender, EventArgs e)
         {
             //הגדרת תג ביניים
@@ -81,10 +84,13 @@ namespace Projects_management
         //פונקציית הצגת הפרויקטים בדאטא גריד
         private void showAll()
         {
-            dgvProjact.Rows.Clear();
+            //ניקוי הדאטא גריד כדי שלא יהיו ערכים שיחזרו על עצמם
+           dgvProjact.Rows.Clear();
+            //לולאת פוראיץ'  שרצה על כל תגית פנימית
            foreach (XmlNode project in XmlDocument.FirstChild.ChildNodes)
             {
                 string name = "", language = "", date = "";
+                //לולאה נוספת ששולפת את הנתונים מכל תגית
                 foreach (XmlNode node in project.ChildNodes)
                 {
                     switch (node.Name)
@@ -100,6 +106,7 @@ namespace Projects_management
                             break;
                     }
                 }
+                //הכנסת כל הנתונים לדאטא גריד
                 dgvProjact.Rows.Add(name, language, date);
             }
             
